@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">  
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">  
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">  
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Target" value="System.out"/>
+        <param name="Threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-4r %-5p [%t] %27c %3x - %m%n"/>
+        </layout>
+    </appender>  
+  
+    <appender name="file"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="./log/trade3a.log" />  
+        <param name="Append" value="true" /> 
+        <param name="MaxBackupIndex" value="10" />  
+        <param name="Threshold" value="DEBUG" />  
+        <param name="MaxFileSize" value="100MB"></param>  
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-4r %-5p [%t] %27c %3x - %m%n"/>
+        </layout>
+    </appender>  
+              
+    <root>  
+        <!-- root 整体设置过滤优先级，如果appender 没有设置filter或Threshold 默认采用该级别，定义的logger不在其中（即不会被过滤掉）。 -->  
+        <priority value="DEBUG" />  
+        <appender-ref ref="console" />  
+        <appender-ref ref="file" />  
+    </root>  
+</log4j:configuration>  

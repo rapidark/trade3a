@@ -1,0 +1,31 @@
+Global $main = WinActivate("网上股票交易系统5.0")
+queryLishizijin($CmdLine[1], $CmdLine[2])
+
+Func queryLishizijin($startDate, $endDate)
+   ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 295)
+   Sleep(500)
+   Dim $start = ControlGetHandle($main, "", "[CLASS:SysDateTimePick32; INSTANCE:3]")
+   setDate($start, $startDate)
+   Dim $end = ControlGetHandle($main, "", "[CLASS:SysDateTimePick32; INSTANCE:4]")
+   setDate($end, $endDate)
+   ControlClick($main, "", "确定")
+
+   Sleep(3000)
+   ControlClick($main, "", "[CLASS:CVirtualGridCtrl; INSTANCE:5]")
+   Send("^c")
+   Dim $text = ClipGet()
+   ConsoleWrite($text)
+EndFunc
+
+Func setDate($ctrl, $date)
+   Dim $time = StringSplit($date, "-")
+   ControlClick($main, "", $ctrl, "left", 1, 20, 12)
+   Send($time[1])
+   Sleep(200)
+   ControlClick($main, "", $ctrl, "left", 1, 50, 12)
+   Send($time[2])
+   Sleep(200)
+   ControlClick($main, "", $ctrl, "left", 1, 75, 12)
+   Send($time[3])
+   Sleep(200)
+EndFunc

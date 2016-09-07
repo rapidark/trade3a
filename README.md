@@ -1,5 +1,5 @@
 # trade3a
-> [3a](www.aaa-aaa.cn)的配套交易网关。
+> [3a](http://www.aaa-aaa.cn)的配套交易网关。
 
 #### 支持两种交易软件：
 * 核新

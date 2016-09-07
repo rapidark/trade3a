@@ -10,9 +10,6 @@ import cn.aaa.trade.util.ProcessUtil;
 import cn.aaa.trade.util.PropertiesUtil;
 import cn.aaa.trade.util.StringParser;
 
-/**
- * 核新
- */
 public class HxTradeProcessor extends AbsTradeProc {
     private String scriptType;
     private String autoit;
@@ -95,9 +92,9 @@ public class HxTradeProcessor extends AbsTradeProc {
         public Object convert(Map<String, Object> row, String strVal) {
             String code = (String) row.get("CODE");
             if (code != null && (code.startsWith("12") || code.startsWith("11") || code.startsWith("204"))) {
-                return (int)(Double.parseDouble(strVal) * 10);
+                return ((int)Float.parseFloat(strVal)) * 10;
             }
-            return (int)Double.parseDouble(strVal);
+            return (int)Float.parseFloat(strVal);
         }
     }
 

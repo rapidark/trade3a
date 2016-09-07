@@ -9,9 +9,6 @@ import cn.aaa.trade.convert.IConvert;
 import cn.aaa.trade.util.ProcessUtil;
 import cn.aaa.trade.util.StringParser;
 
-/**
- * 通达信
- */
 public class TdxTradeProcessor extends HxTradeProcessor {
 
     public List<Map<String, Object>> queryJiaoge(String startTime, String endTime) throws Exception {

@@ -20,9 +20,6 @@ import cn.aaa.trade.proc.AbsTradeProc;
 import cn.aaa.trade.util.PropertiesUtil;
 import cn.aaa.trade.util.SerialUtil;
 
-/**
- * 处理通用请求，解析参数并转发请求到具体Processor
- */
 public class TradeInvoker {
     private static Logger logger = LoggerFactory.getLogger(TradeInvoker.class);
     private AbsTradeProc tradeProc;
@@ -126,19 +123,47 @@ public class TradeInvoker {
         return "导出成功";
     }
 
-    public String importSetting(Map params) throws Exception {
+    public String importJingzhi(Map params) throws Exception {
         String path = PropertiesUtil.get("importpath");
         if (path == null || path.trim().length() == 0) {
             path = "C://";
         }
-        File file = new File(path + "setting.data");
+        File file = new File(path + "jingzhiimport.data");
         if (file.exists()) {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             Object result = in.readObject();
             in.close();
             return SerialUtil.serialize(result);
         } else {
-            return "{}";
+        	throw new Exception("无净值数据文件");
+        }
+    }
+
+    public String exportJingzhi(Map params) throws Exception {
+        String path = PropertiesUtil.get("importpath");
+        if (path == null || path.trim().length() == 0) {
+            path = "C://";
+        }
+        Object datas = params.get("datas");
+        ObjectOutput out = new ObjectOutputStream(new FileOutputStream(path + "jingzhiexport.data"));
+        out.writeObject(datas);
+        out.close();
+        return "导出成功";
+    }
+
+    public String importSetting(Map params) throws Exception {
+        String path = PropertiesUtil.get("importpath");
+        if (path == null || path.trim().length() == 0) {
+            path = "C://";
+        }
+        File file = new File(path + "settingimport.data");
+        if (file.exists()) {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            Object result = in.readObject();
+            in.close();
+            return SerialUtil.serialize(result);
+        } else {
+        	throw new Exception("无设置数据文件");
         }
     }
 
@@ -147,9 +172,9 @@ public class TradeInvoker {
         if (path == null || path.trim().length() == 0) {
             path = "C://";
         }
-        Object setting = params.get("setting");
-        ObjectOutput out = new ObjectOutputStream(new FileOutputStream(path + "setting.data"));
-        out.writeObject(setting);
+        Object datas = params.get("setting");
+        ObjectOutput out = new ObjectOutputStream(new FileOutputStream(path + "settingexport.data"));
+        out.writeObject(datas);
         out.close();
         return "导出成功";
     }

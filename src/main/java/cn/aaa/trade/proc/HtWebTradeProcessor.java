@@ -53,7 +53,7 @@ import com.alibaba.fastjson.util.Base64;
 public class HtWebTradeProcessor extends AbsTradeProc {
     private Logger logger = LoggerFactory.getLogger(HtWebTradeProcessor.class);
 	private CloseableHttpClient Exchanger = HttpClientBuilder.create().build();
-	private String[] szPres = new String[]{"sz", "00", "111", "112", "115", "123001", "128", "1318", "15", "16", "18", "200", "30", "39"};
+	private String[] szPres = new String[]{"sz", "00", "111", "112", "115", "120001", "123001", "127003", "128", "1318", "15", "16", "18", "200", "30", "39"};
     private String login_page = "https://service.htsc.com.cn/service/login.jsp";
     private String login_api = "https://service.htsc.com.cn/service/loginAction.do?method=login";
     private String trade_info_page = "https://service.htsc.com.cn/service/flashbusiness_new3.jsp?etfCode=";
@@ -160,6 +160,7 @@ public class HtWebTradeProcessor extends AbsTradeProc {
             formatter.close();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
+            sMAC = "a8:66:7f:1f:19:a1";
         }
         return sMAC;
     }
@@ -198,7 +199,7 @@ public class HtWebTradeProcessor extends AbsTradeProc {
 			MyCheckCodeTool.main(getCodeArg); // 截取命令行返回结果
 			result = bao.toString();
 			System.setOut(so);
-			result = result.substring(26, 30); // 仅保留验证码部分
+			result = result.substring(25, 29); // 仅保留验证码部分
 		} catch (Exception e) {
 		    logger.error(e.getMessage(), e);
 		}
@@ -511,6 +512,6 @@ public class HtWebTradeProcessor extends AbsTradeProc {
 //      processor.sell("300182", 18, 1000);
 //	    processor.buy("300182", 16, 1000);
 //	    processor.cancelEntrust("96");
-	    processor.queryJiaoge("2016-04-25", "2016-04-28");
+	    processor.queryJiaoge("2016-08-04", "2016-08-04");
 	}
 }

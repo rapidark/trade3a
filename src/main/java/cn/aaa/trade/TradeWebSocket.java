@@ -42,52 +42,45 @@ public class TradeWebSocket implements WebSocket.OnTextMessage {
 
     @Override
     public void onMessage(String data) {
-        logger.info("onMessage:" + data);
+        logger.debug("onMessage:" + data);
         if (invoker == null) {
             sendErr(null, "未配置调用程序");
             return;
         }
         Map msg = SerialUtil.deserialize2map(data);
-        final String id = String.valueOf(msg.get("id"));
+        String id = String.valueOf(msg.get("id"));
         if (id == null) {
             sendErr(id, "非法请求");
             return;
         }
-        final String cmd = String.valueOf(msg.get("cmd"));
+        String cmd = String.valueOf(msg.get("cmd"));
         if (cmd == null) {
             sendErr(id, "无命令参数");
             return;
         }
-        
+        Map params = null;
         Object p = msg.get("params");
         if (p != null) {
-            p = SerialUtil.deserialize2map(String.valueOf(p));
+            params = SerialUtil.deserialize2map(String.valueOf(p));
         }
-        final Map params = (Map) p;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Object obj = InvokeUtil.invoke(invoker, cmd, params);
-                    sendSuc(id, obj);
-                }
-                catch (NoSuchMethodException e) {
-                    sendErr(id, "无效命令:" + cmd);
-                    return;
-                }
-                catch (IOException e) {
-                    logger.error(e.getMessage(), e);
-                    sendErr(id, "调用异常:" + cmd + ",异常信息:" + e.getMessage());
-                }
-                catch (Exception e) {
-                    Throwable t = e.getCause();
-                    logger.error(e.getMessage(), e);
-                    sendErr(id, "执行失败:" + (t != null ? t : e).getMessage());
-                    return;
-                }
-            }
-        }).start();
+        try {
+            Object obj = InvokeUtil.invoke(invoker, cmd, params);
+            sendSuc(id, obj);
+        }
+        catch (NoSuchMethodException e) {
+            sendErr(id, "无效命令:" + cmd);
+            return;
+        }
+        catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            sendErr(id, "调用异常:" + cmd + ",异常信息:" + e.getMessage());
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            sendErr(id, "执行失败:" + e.getMessage());
+            return;
+        }
     }
 
     private void sendSuc(String id, Object msg) {
@@ -114,7 +107,7 @@ public class TradeWebSocket implements WebSocket.OnTextMessage {
             return;
         }
         try {
-            logger.info("send:" + msg);
+            logger.debug("send:" + msg);
             this.connection.sendMessage(msg);
         }
         catch (IOException e) {

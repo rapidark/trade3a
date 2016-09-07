@@ -13,10 +13,13 @@ import cn.aaa.trade.util.PropertiesUtil;
 
 public class TradeHandler extends WebSocketHandler {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Object invoker = null;
-    
-    public TradeHandler() {
-        String invoke = PropertiesUtil.get("invoker");//可通过配置文件定制invoker
+
+    @Override
+    public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
+        logger.debug("url=" + request.getRequestURL() + ",protocol=" + protocol);
+        TradeWebSocket socket = new TradeWebSocket();
+        Object invoker = null;
+        String invoke = PropertiesUtil.get("invoker");
         if (invoke == null || invoke.trim().length() == 0) {
             invoker = getDefaultInvoker();
         }
@@ -29,12 +32,6 @@ public class TradeHandler extends WebSocketHandler {
                 invoker = getDefaultInvoker();
             }
         }
-    }
-
-    @Override
-    public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
-        logger.debug("url=" + request.getRequestURL() + ",protocol=" + protocol);
-        TradeWebSocket socket = new TradeWebSocket();
         socket.setInvoker(invoker);
         return socket;
     }
@@ -42,7 +39,7 @@ public class TradeHandler extends WebSocketHandler {
     private Object getDefaultInvoker() {
         TradeInvoker invoker = new TradeInvoker();
         AbsTradeProc tradeProc = null;
-        String proc = PropertiesUtil.get("processor");//可通过配置文件定制processor
+        String proc = PropertiesUtil.get("processor");
         if (proc == null || proc.trim().length() == 0) {
             tradeProc = new HxTradeProcessor();
         }

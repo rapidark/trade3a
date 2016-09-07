@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import cn.aaa.trade.util.PropertiesUtil;
 
 /**
- * 连通js与java的基于websocket的交易网关，TradeServer->TradeHandler->TradeWebSocket->TradeInvoker->AbsTradeProc
+ * 连通js与autoit的基于websocket的交易网关
  */
 public class TradeServer {
     private Logger logger = LoggerFactory.getLogger(this.getClass());

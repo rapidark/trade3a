@@ -11,9 +11,18 @@ import cn.aaa.trade.util.PropertiesUtil;
 import cn.aaa.trade.util.StringParser;
 
 public class HxTradeProcessor extends AbsTradeProc {
+	
+	public static void main(String[] args) throws Exception {
+		HxTradeProcessor tradeProcessor = new HxTradeProcessor();
+//		tradeProcessor.login();
+		List<Map<String, Object>> result = tradeProcessor.queryJiaoge("2016-01-01", "2016-10-24");
+		System.out.println(result);
+	}
+	
     private String scriptType;
     private String autoit;
     private String xiadan;
+    private String account;
     private String pass;
     private String verify;
 
@@ -22,6 +31,8 @@ public class HxTradeProcessor extends AbsTradeProc {
         this.scriptType = PropertiesUtil.get("scriptType");
         this.xiadan = PropertiesUtil.get("xiadan");
         this.pass = PropertiesUtil.get("pass");
+        this.account = PropertiesUtil.get("account");
+        
         this.verify = PropertiesUtil.get("verify");
     }
 
@@ -43,7 +54,7 @@ public class HxTradeProcessor extends AbsTradeProc {
     }
 
     public void login() throws Exception {
-        ProcessUtil.run(getCmdPath("login", xiadan, pass, verify));
+        ProcessUtil.run(getCmdPath("login", xiadan, account, pass, verify));
     }
 
     public List<Map<String, Object>> queryJiaoge(String startTime, String endTime) throws Exception {

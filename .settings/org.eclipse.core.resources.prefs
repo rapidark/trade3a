@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//script/hx/login.au3=gbk
+encoding//script/hx/queryJiaoge.au3=gbk
+encoding//src/main/resources/config-hx.properties=gbk
+encoding//src/main/resources/config.properties=gbk
 encoding//src/test/java=UTF-8

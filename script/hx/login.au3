@@ -1,10 +1,11 @@
-login($CmdLine[1], $CmdLine[2], $CmdLine[3])
+login($CmdLine[1], $CmdLine[2], $CmdLine[3], $CmdLine[4])
 
-Func login($path, $pass, $ver)
+Func login($path, $account, $pass, $ver)
    Run($path);
 
    Dim $login = WinWait("用户登录")
-   ControlSetText($login, "", "[CLASS:Edit;INSTANCE:2]", $pass)
+   ControlSetText($login, "", "[CLASS:Edit;INSTANCE:1]", $account)
+    ControlSetText($login, "", "[CLASS:Edit;INSTANCE:2]", $pass)
    ControlSetText($login, "", "[CLASS:Edit;INSTANCE:3]", $ver)
    Sleep(500)
    ControlClick($login, "", "确定(&Y)")

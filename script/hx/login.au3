@@ -11,13 +11,15 @@ Func login($path, $account, $pass, $ver)
    ControlClick($login, "", "确定(&Y)")
 
    $main = WinWait("网上股票交易系统5.0")
-   ;WinSetTitle($main, "", "Work")
+   WinSetTitle($main, "", "AutoTraderV1")
    ;WinSetTrans($main, "", 200)
 
+	$main = WinActivate("网上股票交易系统5.0")
+	
    Sleep(2000)
-   Send("{F6}")
-   Sleep(1000)
-   ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 315)
-   Sleep(1000)
-   ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 295)
+   ;Send("{F6}")
+   ;Sleep(1000)
+   ;ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 315)
+   ;Sleep(1000)
+   ;ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 295)
 EndFunc

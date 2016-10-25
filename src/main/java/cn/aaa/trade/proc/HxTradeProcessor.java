@@ -14,8 +14,8 @@ public class HxTradeProcessor extends AbsTradeProc {
 	
 	public static void main(String[] args) throws Exception {
 		HxTradeProcessor tradeProcessor = new HxTradeProcessor();
-//		tradeProcessor.login();
-		List<Map<String, Object>> result = tradeProcessor.queryJiaoge("2016-01-01", "2016-10-24");
+		tradeProcessor.login();
+		List<Map<String, Object>> result = tradeProcessor.queryJiaoge("2016-01-01", "2016-10-20");
 		System.out.println(result);
 	}
 	
@@ -60,12 +60,13 @@ public class HxTradeProcessor extends AbsTradeProc {
     public List<Map<String, Object>> queryJiaoge(String startTime, String endTime) throws Exception {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         String jiaogeStr = ProcessUtil.run(getCmdPath("queryJiaoge", startTime, endTime));
+        System.out.println(jiaogeStr);
         result.addAll(StringParser.parse(jiaogeStr,
                         new String[]{ "合同编号", "成交日期", "摘要", "证券代码", "证券名称", "成交均价", "成交数量", "发生金额", "手续费", "印花税", "股东帐户" }, 
                         new String[]{ "ID", "DATE", "TYPE", "CODE", "NAME", "PRICE", "NUM", "VALUE", "YONGJIN", "YINHUA", "ZHANGHU" }, 
                         new Object[]{ null, null, new TradeTypeConvert(), null, null, double.class, new NumConvert(), double.class, double.class, double.class, null }));
-        String lishizijinStr = ProcessUtil.run(getCmdPath("queryLishizijin", startTime, endTime));
-        result.addAll(parseLishizijin(lishizijinStr));
+//        String lishizijinStr = ProcessUtil.run(getCmdPath("queryLishizijin", startTime, endTime));
+//        result.addAll(parseLishizijin(lishizijinStr));
         return result;
     }
 

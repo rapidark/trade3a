@@ -15,7 +15,7 @@ public class HxTradeProcessor extends AbsTradeProc {
 	public static void main(String[] args) throws Exception {
 		HxTradeProcessor tradeProcessor = new HxTradeProcessor();
 		tradeProcessor.login();
-		List<Map<String, Object>> result = tradeProcessor.queryJiaoge("2016-01-01", "2016-10-20");
+		List<Map<String, Object>> result = tradeProcessor.queryJiaoge("2016-10-01", "2016-10-20");
 		System.out.println(result);
 	}
 	

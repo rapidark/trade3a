@@ -13,6 +13,12 @@ Func queryJiaoge($startDate, $endDate)
    Dim $end = ControlGetHandle($main, "", "[CLASS:SysDateTimePick32; INSTANCE:3]")
    setDate($end, $endDate)
    ControlClick($main, "", "确定")
+	
+	$text2 = ControlGetHandle($main, "", "[CLASS:CVirtualGridCtrl]")
+MsgBox(0, "类列表为:", $text2)
+
+$text2 = ControlGetHandle($main, "", "[CLASS:CVirtualGridCtrl; INSTANCE:2]")
+MsgBox(0, "类列表为:", $text2)
 
    Sleep(3000)
    ;[AfxMDIFrame42s][Afx:400000:b:10003:6:15ec1b59][#32769]

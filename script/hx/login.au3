@@ -11,10 +11,10 @@ Func login($path, $account, $pass, $ver)
    ControlClick($login, "", "确定(&Y)")
 
    $main = WinWait("网上股票交易系统5.0")
-   WinSetTitle($main, "", "AutoTraderV1")
+   WinSetTitle("网上股票交易系统5.0", "", "AutoTraderV1")
    ;WinSetTrans($main, "", 200)
 
-	$main = WinActivate("网上股票交易系统5.0")
+	;$main = WinActivate("网上股票交易系统5.0")
 	
    Sleep(2000)
    ;Send("{F6}")

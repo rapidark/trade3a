@@ -4,7 +4,7 @@ Global $main = WinActivate("网上股票交易系统5.0")
 queryJiaoge($CmdLine[1], $CmdLine[2])
 
 Func queryJiaoge($startDate, $endDate)
-	$main = WinActivate("网上股票交易系统5.0")
+	;$main = WinActivate("网上股票交易系统5.0")
    ;ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 315)
    ControlClick($main, "", "[CLASS:SysTreeView32; INSTANCE:1]", "left", 1, 77, 245)
    Sleep(500)
@@ -14,11 +14,8 @@ Func queryJiaoge($startDate, $endDate)
    setDate($end, $endDate)
    ControlClick($main, "", "确定")
 	
-	$text2 = ControlGetHandle($main, "", "[CLASS:CVirtualGridCtrl]")
-MsgBox(0, "类列表为:", $text2)
-
-$text2 = ControlGetHandle($main, "", "[CLASS:CVirtualGridCtrl; INSTANCE:2]")
-MsgBox(0, "类列表为:", $text2)
+	;$text2 = WinGetClassList("[CLASS:CVirtualGridCtrl]")
+	;MsgBox(0, "类列表为:", $text2)
 
    Sleep(3000)
    ;[AfxMDIFrame42s][Afx:400000:b:10003:6:15ec1b59][#32769]
